@@ -42,7 +42,7 @@ SIM_OPTIONS   := -sverilog -debug_access+all -timescale=1ns/1ns  -lca +v2k -l co
 # SIM_EXEC      := #To-ADD: to add the simulatoin executable
 #SIM_EXEC      := vvp ${RUN_DIR}/vvp.exec -none # The free vvp is tooooo slow to run, so just comment it out, and replaced with the fake way below
 #SIM_EXEC      := echo "Test Result Summary: PASS" # This is a fake run to just direct print PASS info to the log, the user need to actually replace it to the real EDA command
-SIM_EXEC      := ./simv  -l simv.log +fsdbfile+top.fsdb
+SIM_EXEC      := ../simv  -l simv.log +fsdbfile+top.fsdb
 
 # WAV_TOOL      := #To-ADD: to add the waveform tool
 # WAV_OPTIONS   := #To-ADD: to add the waveform tool options 
@@ -56,7 +56,7 @@ all: run
 
 compile.flg: ${RTL_V_FILES} ${TB_V_FILES}
 	@-rm -rf compile.flg
-	${SIM_TOOL} ${SIM_OPTIONS}  +incdir+${RTL_V_FILES} +incdir+${TB_V_FILES} ;
+	${SIM_TOOL} ${SIM_OPTIONS}  +incdir+${RTL_V_FILES}+${TB_V_FILES} ;
 	touch compile.flg
 
 compile: compile.flg 
@@ -69,7 +69,7 @@ run: compile
 	rm -rf ${TEST_RUNDIR}
 	mkdir ${TEST_RUNDIR}
 	cd ${TEST_RUNDIR}; ${SIM_EXEC} +DUMPWAVE=${DUMPWAVE} +TESTCASE=${TESTCASE} |& tee ${TESTNAME}.log; cd ${RUN_DIR}; 
-
+	cp /home/eda/riscv/e200_opensource-master /mnt/hgfs/D/Lab/Graduate -rf
 
 .PHONY: run clean all 
 
