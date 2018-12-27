@@ -246,12 +246,11 @@ module tb_top();
     if(dumpwave != 0)begin
         $fsdbDumpfile("top.fsdb");
         $fsdbDumpvars();
-	$dumpfile("top.vcd");
-	$dumpvars();
-	end
-         // To add your waveform generation function
+//	$dumpfile("top.vcd");
+//	$dumpvars();
     end
-  end
+         // To add your waveform generation function
+   end
 
 
 
